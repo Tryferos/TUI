@@ -29,6 +29,7 @@ export const LoggedIn: Story = {
    text: 'Tip 101 gia money marixuana sokolata doumani',
    topOffset: 40,
    darkMode: false,
+   canCopyTip: true,
 
   },
 };
