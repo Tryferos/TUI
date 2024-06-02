@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { TooptipTypes } from "./TooltipTypes";
 import { twMerge } from "tailwind-merge";
-import { getAnimationValues, getCopyTipValue, getDarkModeValue } from "../libs";
+import { getAnimationStyles, getAnimationTransitions, getAnimationValues, getCopyTipValue, getDarkModeValue, mapAnimationType } from "../libs";
 import { CopyIcon } from "../icons";
 import { useInterval } from "../hooks/useInterval";
 
@@ -10,13 +10,12 @@ const pointerEvents = 'pointer-events-none group-hover:pointer-events-auto';
 const Tooltip: FC<TooptipTypes> = (props) => {
     const {children, topOffset, animation: animationProps, darkMode: darkModeProp} = props;
 
-    const animation = getAnimationValues(animationProps)
     const darkMode = getDarkModeValue(darkModeProp);
     
     return (
         <div className={twMerge("group relative", darkMode)}>
             {children}
-            <div className={twMerge("absolute w-full pointer-events-none", 'group-hover:pointer-events-auto peer-hover:pointer-events-none')} style={{height: topOffset ?? 0}}></div>
+            <div className={twMerge("absolute hidden group-hover:flex w-full pointer-events-none", 'group-hover:pointer-events-auto peer-hover:pointer-events-none')} style={{height: topOffset ?? 0}}></div>
             <TooltipBox topOffset={topOffset} {...props}/>
         </div>
     )
@@ -24,8 +23,10 @@ const Tooltip: FC<TooptipTypes> = (props) => {
 
 const TooltipBox: FC<TooptipTypes> = (props) => {
 
-    const {topOffset, text, canCopyTip: canCopyTipProp} = props;
+    const {topOffset, text, canCopyTip: canCopyTipProp, animation: animationProps} = props;
     const canCopyTip = getCopyTipValue(canCopyTipProp);
+    const animations = getAnimationValues(animationProps)
+
     const [copied, setCopied] = useState<boolean>(false);
     const interval = 1500;
 
@@ -43,10 +44,18 @@ const TooltipBox: FC<TooptipTypes> = (props) => {
         setCopied(true);
     }
 
+    const copyTipStyles = canCopyTip ? 'py-6 px-6 cursor-pointer' : '';
+    
+    const animationsStyles =  getAnimationStyles(animations);
+
+     const getAnimationTransitionsStyles = getAnimationTransitions(animations.properties);
+
     return (
         <div onClick={handleCopyTip}
-        className={twMerge("hidden dark:bg-slate-800 group-hover:flex bg-white shadow-box rounded px-4 py-2 cursor-default absolute",pointerEvents, canCopyTip && 'py-6 px-6 cursor-pointer') }
-        style={{top: topOffset ?? undefined}}
+        className={twMerge("dark:bg-slate-800 transition-[scale] bg-white shadow-box rounded px-4 py-2 cursor-default absolute opacity-0 group-hover:opacity-100",
+        pointerEvents, copyTipStyles, animationsStyles, getAnimationTransitionsStyles) }
+        
+        style={{top: topOffset ?? undefined, transitionDuration: `${animations.duration}ms`, transitionDelay: `${animations.delay}ms`}}
         >
            {
             canCopyTip &&

@@ -30,6 +30,11 @@ export const LoggedIn: Story = {
    topOffset: 40,
    darkMode: false,
    canCopyTip: true,
+   animation: {
+    enabled: true,
+    duration: 350,
+    properties: ['scale'],
+   }
 
   },
 };
