@@ -11,8 +11,6 @@ export const getAnimationValues = (animation?: Partial<AnimationType>): Animatio
 
 export const getDarkModeValue = (darkMode?: boolean) => (darkMode ?? false) == true ? 'dark' : '';
 
-export const getCopyTipValue = (canCopyTip?: boolean) => canCopyTip ?? false;
-
 export const mapAnimationType = (property: AnimationProperty) => {
     if(property=='scale') return 'scale-[0.8] group-hover:scale-100'
 }

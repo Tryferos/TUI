@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 
 
-export type TooptipTypes = {
+export type TooltipProps = {
     children: ReactNode;
     text: string;
     topOffset?: number;
