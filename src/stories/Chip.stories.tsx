@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { TUITooltip } from '../components';
+import { TUIChip } from '../components';
 import React, { FC } from 'react';
-import { BtnTooltip } from './tooltip.components';
+import { ChipDeleteIcon } from './Chip.components';
 
 const meta = {
-  title: 'Basic/Tooltip',
-  component: TUITooltip,
+  title: 'Basic/Chip',
+  component: TUIChip,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -16,7 +16,7 @@ const meta = {
   args: { //of the component
 
   },
-} satisfies Meta<typeof TUITooltip>;
+} satisfies Meta<typeof TUIChip>;
 
 export default meta;
 
@@ -24,18 +24,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-   children: BtnTooltip({}, null),
-   text: 'Tip 101 gia money marixuana sokolata doumani',
-   offset: 10,
-   darkMode: false,
-   position: 'top',
-   canCopyTip: true,
-   animation: {
+    text: 'Movies',
+    // color: "#444444",
     enabled: true,
-    duration: 350,
-    properties: ['opacity'],
-   }
-
+    onClick: () => {},
+    onIconClick: () => {console.log('icon')},
+    icon: <ChipDeleteIcon/>,
+    selected: true,
+    darkMode: false,
   },
 };
 

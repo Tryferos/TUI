@@ -2,11 +2,12 @@
 export default {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./src/stories/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       'boxShadow': {
-        'box': '2px 2px 16px 0px rgba(0,0,0,0.2)'
+        'box': '2px 2px 32px -2px rgba(30,30,30,0.1)'
       }
     },
   },
