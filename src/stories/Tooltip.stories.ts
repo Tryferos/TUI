@@ -8,7 +8,6 @@ const meta = {
   title: 'Basic/Tooltip',
   component: TUITooltip,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ['autodocs'],
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -23,17 +22,18 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const LoggedIn: Story = {
+export const Basic: Story = {
   args: {
    children: BtnTooltip({}, null),
    text: 'Tip 101 gia money marixuana sokolata doumani',
-   topOffset: 40,
+   offset: 10,
    darkMode: false,
-   canCopyTip: false,
+   position: 'top',
+   canCopyTip: true,
    animation: {
     enabled: true,
     duration: 350,
-    properties: ['scale'],
+    properties: ['opacity'],
    }
 
   },

@@ -1,10 +1,10 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactElement, ReactNode } from "react";
 
 
 export type TooltipProps = {
-    children: ReactNode;
+    children: ReactElement | ReactNode;
     text: string;
-    topOffset?: number;
+    offset?: number;
     canCopyTip?: boolean;
     position?: 'bottom' | 'top'
-} & UIType;
+} & Partial<UIType>;

@@ -13,7 +13,7 @@
     "build": "run-script-os",
     "build:win32": "(del /f /s /q dist 1>nul) && rollup -c --bundleConfigAsCjs",
     "build:linux:darwin": "(rm -r -f dist) && rollup -c --bundleConfigAsCjs",
-    "purge": "(rm -r -f dist) && (rm -r -f node_modules/) && npm i && rollup -c --bundleConfigAsCjs",
+    "purge": "(rm -r -f dist) && (rm -r -f node_modules/) && npm i && cd ios && pod install && .. && rollup -c --bundleConfigAsCjs",
     "build:macos": "(rm -r -f dist); rollup -c --bundleConfigAsCjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

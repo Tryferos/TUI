@@ -1,6 +1,6 @@
 type UIType = {
-    darkMode?: boolean;
-    animation?: Partial<AnimationType>;
+    darkMode: boolean;
+    animation: Partial<AnimationType>;
 }
 
 type AnimationType = {
