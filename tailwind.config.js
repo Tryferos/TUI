@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       'boxShadow': {
-        'box': '2px 2px 32px -2px rgba(30,30,30,0.1)'
+        'box': '2px 2px 32px -2px rgba(30,30,30,0.1)',
+        'box-dark': '2px 2px 32px -2px rgba(180,180,180,0.1)'
       }
     },
   },

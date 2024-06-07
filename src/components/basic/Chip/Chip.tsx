@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ChipProps } from "./ ChipTypes";
+import { ChipProps } from "./ChipTypes";
 import { getDefaultProps } from "./libs";
 import { twMerge } from "tailwind-merge";
 import { ChipDeleteIcon } from "../../../stories/Chip.components";

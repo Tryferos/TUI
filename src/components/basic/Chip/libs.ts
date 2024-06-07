@@ -1,5 +1,5 @@
 import { getAnimationValues } from "../../libs";
-import { ChipProps } from "./ ChipTypes";
+import { ChipProps } from "./ChipTypes";
 
 export const getDefaultProps = (props: Partial<ChipProps>): ChipProps => {
     const darkMode = props.darkMode ?? false;
