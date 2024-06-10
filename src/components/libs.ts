@@ -1,3 +1,4 @@
+import { AnimationProperty, AnimationType } from "./genericTypes";
 
 export const getAnimationValues = (animation?: Partial<AnimationType>): AnimationType => {
     const enabled = animation?.enabled ?? true

@@ -1,13 +1,30 @@
 {
   "name": "@tryferos/tui",
   "private": false,
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "author": "Tryferos",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tryferos/TUI"
+  },
+  "keywords": [
+    "react",
+    "react-components",
+    "components",
+    "dropdown",
+    "chip",
+    "tooltip",
+    "library",
+    "component library",
+    "types",
+    "typescript",
+    "tryferos"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "run-script-os",
@@ -66,9 +83,7 @@
     "tailwindcss": "^3.4.3",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
-    "vite": "^5.2.0"
-  },
-  "dependencies": {
+    "vite": "^5.2.0",
     "tailwind-merge": "^2.3.0"
   }
 }
