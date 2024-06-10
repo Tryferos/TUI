@@ -1,7 +1,7 @@
-import { FC, ReactNode, useEffect, useRef, useState } from "react";
+import { FC, useState } from "react";
 import { TooltipProps } from "./TooltipTypes";
 import { twMerge } from "tailwind-merge";
-import { getAnimationStyles, getAnimationTransitions, getAnimationValues, getDarkModeValue, mapAnimationType } from "../../libs";
+import { getAnimationStyles, getAnimationTransitions, getAnimationValues, getDarkModeValue } from "../../libs";
 import { CopyIcon } from "../../icons";
 import { useInterval } from "../../hooks/useInterval";
 import { getCopyTipValue } from "./libs";
@@ -9,13 +9,11 @@ import { getCopyTipValue } from "./libs";
 const pointerEvents = 'pointer-events-none group-hover:pointer-events-auto';
 
 const Tooltip: FC<TooltipProps> = (props) => {
-    const {children, offset, animation: animationProps, darkMode: darkModeProp} = props;
+    const {children, offset, darkMode: darkModeProp} = props;
 
     const darkMode = getDarkModeValue(darkModeProp);
 
     const position = props.position ?? 'bottom';
-
-    const positionStyles = position == 'bottom' ? '' : 'top-0 -translate-y-[100%]'
     
     return (
         <div className={twMerge("group relative", darkMode)}>

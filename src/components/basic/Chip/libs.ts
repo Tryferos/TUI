@@ -1,4 +1,3 @@
-import { getAnimationValues } from "../../libs";
 import { ChipProps } from "./ChipTypes";
 
 export const getDefaultProps = (props: Partial<ChipProps>): ChipProps => {

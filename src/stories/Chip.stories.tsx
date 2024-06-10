@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { TUIChip } from '../components';
+import { TUIChip } from '../index';
 import React, { FC } from 'react';
 import { ChipDeleteIcon } from './Chip.components';
 

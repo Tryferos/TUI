@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {  TUIDropdown } from '../components';
+import {  TUIDropdown } from '../index';
 import React, { FC } from 'react';
 import { ChipDeleteIcon } from './Chip.components';
 
@@ -28,10 +28,14 @@ export const Basic: Story = {
         rounded: 12,
         scrollable: true,
         sort: 'alphabetic',
-        outline: 'underline',
+        outline: 'full',
         order: 'asc',
         maxHeight: '30vh',
-        darkMode: true,
+        darkMode: false,
+        animation: {
+          enabled: true,
+        },
+        onItemSelect: (item: any) => console.log(item),
   },
 };
 

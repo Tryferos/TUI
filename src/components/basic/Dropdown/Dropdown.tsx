@@ -1,7 +1,8 @@
-import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react"
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react"
 import { DropdownProps } from "./types"
-import { getBoxStyles, getBoxStylesStyle, getDropdownListStyles, getDropdownProps, getListStyles, sortItems } from "./libs"
+import { getBoxStyles, getBoxStylesStyle, getDropdownListStyles, getDropdownProps, getListAnimationStyles, getListStyles, sortItems } from "./libs"
 import { twMerge } from "tailwind-merge";
+import { XMark } from "../../icons";
 
 export function Dropdown<T extends string | number>(_props: Partial<DropdownProps<T>>){
     const props = getDropdownProps(_props);
@@ -58,6 +59,8 @@ export function Dropdown<T extends string | number>(_props: Partial<DropdownProp
 
     }, [inputRef])
 
+    const handleClearQuery = () => setQuery('');
+
     const darkModeStyles = props.darkMode ? 'dark' : '';
     
     return (
@@ -75,6 +78,12 @@ export function Dropdown<T extends string | number>(_props: Partial<DropdownProp
             type='text' placeholder={props.hint} value={query}
             className="border-none z-[400] dark:text-gray-300 dark:caret-slate-300 dark:placeholder-slate-400 outline-none pl-2 pr-12 py-4 peer dark:bg-slate-700"/>
             <DropdownList {...props} query={query} onQueryChange={handleItemSelect} isOpen={isOpen}/>
+            {
+                query.length > 0 && 
+                <div className="size-4 absolute right-4 bottom-1 -translate-y-[100%]">
+                    <XMark onClick={handleClearQuery}/>
+                </div>
+            }
         </div>
         </div>
     )
@@ -98,7 +107,7 @@ function DropdownList<T extends string | number>(props: DropdownProps<T> & {quer
     const isEmptyList = items.length == 0;
     const noItemsFound = query.length !=0 && filteredItems.length==0 && !isEmptyList;
 
-    const listStyles = `${getListStyles(props.outline)} ${isOpen ? 'flex' : 'hidden group-focus-within:flex hover:flex' }`;
+    const listStyles = `${getListStyles(props.outline)} ${getListAnimationStyles(isOpen, props.animation?.enabled!) }`;
 
     const onItemSelect = (item: T) => {
         props.onQueryChange(item);
@@ -108,9 +117,9 @@ function DropdownList<T extends string | number>(props: DropdownProps<T> & {quer
     return (
         <div
         style={{
-            ...getDropdownListStyles(props)
+            ...getDropdownListStyles(props),
         }}
-        className={twMerge("absolute bg-white dark:bg-slate-700 z-[200] w-[calc(100%+2px)] left-[-1px]", listStyles)}>
+        className={twMerge("absolute transition-opacity bg-white dark:bg-slate-700 z-[200] w-[calc(100%+2px)] left-[-1px]", listStyles)}>
             <ul
             style={{
                 maxHeight: props.scrollable==false ? undefined : props.maxHeight!,
@@ -122,7 +131,7 @@ function DropdownList<T extends string | number>(props: DropdownProps<T> & {quer
                 {
                     isOpen && isEmptyList && <DropdownItem item={'List is empty'}/>
                 }
-                {isOpen && filteredItems.map((item, index) => <DropdownItem key={`${item}-`+index} item={item} onItemSelect={onItemSelect}/>)}
+                { filteredItems.map((item, index) => <DropdownItem key={`${item}-`+index} item={item} onItemSelect={onItemSelect}/>)}
             </ul>
         </div>
     )

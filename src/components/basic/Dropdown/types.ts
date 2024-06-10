@@ -1,3 +1,4 @@
+import { UIType } from "../../genericTypes";
 
 
 export type DropdownProps<T extends string | number> = {

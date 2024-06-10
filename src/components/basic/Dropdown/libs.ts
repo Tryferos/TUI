@@ -29,6 +29,13 @@ export const getListStyles = (outline: Pick<DropdownProps<any>, 'outline'>['outl
     'shadow-box dark:shadow-box-dark rounded mt-12 outline-1 outline-gray-300 dark:outline-slate-800 outline translate-y-[105%]';
 }
 
+export const getListAnimationStyles = (isOpen: boolean, animation: boolean) => {
+    if(!animation){
+        return isOpen ? 'opacity-1 flex' : 'hidden hover:flex group-focus-within:flex'
+    }
+    return isOpen ? 'opacity-1 pointer-events-auto' : 'opacity-0 pointer-events-none hover:pointer-events-auto group-focus-within:pointer-events-auto group-focus-within:opacity-1 hover:opacity-1'
+}
+
 export const getBoxStylesStyle = (outline: Pick<DropdownProps<any>, 'outline'>['outline'],rounded: Pick<DropdownProps<any>, 'rounded'>['rounded']) => 
 ({borderRadius: outline=='full' ? `${rounded}px` : undefined});
 
@@ -38,20 +45,22 @@ export function sortItems<T extends string | number>({items, sort, order, limit}
         const sign = order=='desc' ? 1 : -1;
 
         if(sort=='alphabetic' || sort=='numeral'){
-            return items.sort((a,b) => sign * `${a}`.localeCompare(`${b}`))
+            return items.sort((a: T,b: T) => sign * `${a}`.localeCompare(`${b}`))
         }
 
         if(sort=='length'){
-            return items.sort((a,b) => sign * (a.toString().length - b.toString().length))
+            return items.sort((a: T,b: T) => sign * (a.toString().length - b.toString().length))
         }
 
         return items;
-    })().filter((_, index) => index < limit!)
+    })().filter((_: T, index: number) => index < limit!)
 }
 
-export const getDropdownListStyles = ({outline, rounded}: Pick<DropdownProps<any>, 'outline' | 'rounded'>) => {
+export const getDropdownListStyles = ({outline, rounded, animation}: Pick<DropdownProps<any>, 'outline' | 'rounded' | 'animation'>) => {
     return {
         bottom: outline == 'underline' ? -1 : Math.min(rounded! / 1.3, 30),
         paddingTop: outline == 'underline' ? 2 : Math.max(Math.min(rounded! , 40), 12),
+        transitionDuration: `${animation?.duration!}ms`,
+        transitionDelay: `${animation?.delay!}ms`,
     }
 }

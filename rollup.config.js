@@ -14,7 +14,7 @@ process.env.NODE_ENV = "production";
 
 export default [
     {
-        input: "./src/components/index.ts",
+        input: "./src/index.ts",
         output: [
             {
                 file: "dist/index.cjs",
@@ -48,7 +48,7 @@ export default [
     },
     {
         //TYPESCRIPT
-        input: "./src/components/index.ts",
+        input: "./src/index.ts",
         output: [
             {
                 file: "dist/index.d.ts",

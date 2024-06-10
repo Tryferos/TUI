@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import { TUITooltip } from '../components';
+import { TUITooltip } from '../index';
 import React, { FC } from 'react';
 import { BtnTooltip } from './tooltip.components';
 

@@ -2,7 +2,6 @@ import { FC } from "react";
 import { ChipProps } from "./ChipTypes";
 import { getDefaultProps } from "./libs";
 import { twMerge } from "tailwind-merge";
-import { ChipDeleteIcon } from "../../../stories/Chip.components";
 
 export const Chip: FC<Partial<ChipProps>> = (_props) => {
     const props = getDefaultProps(_props);

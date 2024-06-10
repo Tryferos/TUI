@@ -1,4 +1,5 @@
-import { FC, ReactElement, ReactNode } from "react";
+import {  ReactElement, ReactNode } from "react";
+import { UIType } from "../../genericTypes";
 
 
 export type TooltipProps = {
