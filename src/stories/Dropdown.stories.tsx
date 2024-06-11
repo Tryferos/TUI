@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-        hint: 'hint',
+        hint: 'Select an item',
         items: ['pezww mpala embappe','generali insurance', 'maxima', 'a2a standup', 'bonnie snikaros', 3, 1, 2, 'aa', 'aaa', 'aaaaa'],
         rounded: 12,
         scrollable: true,
@@ -32,6 +32,7 @@ export const Basic: Story = {
         order: 'asc',
         maxHeight: '30vh',
         darkMode: false,
+        search: true,
         animation: {
           enabled: true,
         },

@@ -15,6 +15,7 @@ export function getDropdownProps<T extends string | number> (props: Partial<Drop
         scrollable: props.scrollable ?? true,
         rounded: props.rounded ?? 10,
         filter: props.filter ?? false,
+        search: props.search ?? true,
         ...props
     }
 }

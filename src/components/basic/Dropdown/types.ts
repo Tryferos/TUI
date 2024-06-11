@@ -12,6 +12,7 @@ export type DropdownProps<T extends string | number> = {
     order?: 'desc' | 'asc';
     limit?: number;
     scrollable?: boolean;
+    search?: boolean;
     maxHeight?: string;
     rounded?: number;
 } & Partial<UIType>

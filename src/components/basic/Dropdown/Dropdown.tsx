@@ -1,8 +1,9 @@
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react"
+import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from "react"
 import { DropdownProps } from "./types"
 import { getBoxStyles, getBoxStylesStyle, getDropdownListStyles, getDropdownProps, getListAnimationStyles, getListStyles, sortItems } from "./libs"
 import { twMerge } from "tailwind-merge";
-import { XMark } from "../../icons";
+import { ArrowIcon, XMark } from "../../icons";
+import { getDarkModeValue } from "../../libs";
 
 export function Dropdown<T extends string | number>(_props: Partial<DropdownProps<T>>){
     const props = getDropdownProps(_props);
@@ -61,30 +62,42 @@ export function Dropdown<T extends string | number>(_props: Partial<DropdownProp
 
     const handleClearQuery = () => setQuery('');
 
-    const darkModeStyles = props.darkMode ? 'dark' : '';
+    const darkModeStyles = getDarkModeValue(props.darkMode);
+    const searchStyles = !props.search ? 'cursor-pointer' : ''
+
+    const showXMark = query.length > 0 && props.search
     
     return (
         <div className={darkModeStyles}>
             <div 
         ref={parentRef}
-        className={twMerge('relative group', boxStyle)}
+        className={twMerge('relative group', boxStyle, )}
         style={{
             ...boxStylesStyle
         }}
         >
+         <div className="flex items-center px-2 pr-4 justify-between">
             <input 
-            style={{...boxStylesStyle}}
-            ref={inputRef} onChange={onQueryChange}
-            type='text' placeholder={props.hint} value={query}
-            className="border-none z-[400] dark:text-gray-300 dark:caret-slate-300 dark:placeholder-slate-400 outline-none pl-2 pr-12 py-4 peer dark:bg-slate-700"/>
-            <DropdownList {...props} query={query} onQueryChange={handleItemSelect} isOpen={isOpen}/>
-            {
-                query.length > 0 && 
-                <div className="size-4 absolute right-4 bottom-1 -translate-y-[100%]">
+                style={{...boxStylesStyle}}
+                ref={inputRef} onChange={onQueryChange}
+                readOnly={!props.search}
+                type='text' placeholder={props.hint} value={query}
+                className={twMerge("border-none z-[400] w-[80%] dark:text-gray-300 dark:caret-slate-300 dark:placeholder-slate-400 outline-none pl-2 pr-2 py-4 peer dark:bg-slate-700",searchStyles)}/>
+                <DropdownList {...props} query={query} onQueryChange={handleItemSelect} isOpen={isOpen}/>
+                <div className={twMerge('size-3', showXMark ? 'opacity-100' : 'opacity-0')}>
                     <XMark onClick={handleClearQuery}/>
-                </div>
-            }
+                </div> 
+                <ArrowDropdownIcon/>
+         </div>
         </div>
+        </div>
+    )
+}
+
+const ArrowDropdownIcon: FC = () => {
+    return (
+        <div className="size-[10px] translate-y-[-1px] group-focus-within:rotate-90 transition-transform">
+            <ArrowIcon/>
         </div>
     )
 }
@@ -95,7 +108,7 @@ function DropdownList<T extends string | number>(props: DropdownProps<T> & {quer
     
     const filteredItems = useMemo(() => {
         
-        if(query.length==0) return sortItems({items: items, sort: sort, limit: limit, order: order});
+        if(query.length==0 || !props.search) return sortItems({items: items, sort: sort, limit: limit, order: order});
         
         const _items = items.filter((item) => `${item}`.toLowerCase().toLowerCase().includes(query.toLowerCase()))
 
@@ -145,7 +158,7 @@ function DropdownItem<T extends string | number>(props: DropdownItemProps<T>) {
     }
     return (
         <li onClick={handleClick} 
-        className="px-4 py-1 hover:bg-gray-100 dark:hover:bg-slate-600 cursor-pointer text-gray-800 dark:text-gray-300">
+        className="px-4 py-1 last:rounded-b-md hover:bg-gray-100 dark:hover:bg-slate-600 cursor-pointer text-gray-800 dark:text-gray-300">
             <p>{props.item}</p>
         </li>
     )
