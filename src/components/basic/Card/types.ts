@@ -1,5 +1,11 @@
 import { ReactElement } from "react"
 
+export type CardInsideTags = {
+    label: string;
+    backgroundColor?: string;
+    textColor?: string;
+    backColor?: string;
+}
 
 export type CardProps = {
     image: string;
@@ -8,14 +14,15 @@ export type CardProps = {
     description: string;
     size?: string;
     onClick?: () => void
+    tags?: Array<CardInsideTags>
 }
 
 export interface CardSimpleProps extends CardProps {
 }
 
 export interface CardDetailsProps extends CardProps {
-    extraDetails: ReactElement;
-    leading: ReactElement;
+    extraDetails?: ReactElement;
+    leading?: ReactElement;
 }
 
 export interface SmallDetailsProps extends Pick<CardProps, 'image' | 'label' | 'backgroundColor'>{
@@ -27,5 +34,5 @@ export interface SmallDetailsProps extends Pick<CardProps, 'image' | 'label' | '
     
     Detailed -> Image with label, description and extra details
 
-    Small -> Image with label inside it
+    Small -> Image with tags inside it
 */
