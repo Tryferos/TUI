@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {  TUISimpleCard, TUIDetailedCard } from '../index';
+import {  TUISimpleCard, TUIDetailedCard, TUISmallCard } from '../index';
 import React, { FC } from 'react';
 
 const meta = {
@@ -14,7 +14,7 @@ const meta = {
   args: { //of the component
 
   },
-} satisfies Meta<typeof TUISimpleCard>;
+} satisfies Meta<typeof TUIDetailedCard>;
 
 export default meta;
 
@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     description: 'This is a cool description his is a cool description his is a cool description his is a cool description' ,
-    label: 'Mpoukia Mpoukia Mpouki ladadika',
+    label: 'Mpoukia Mpoukia Mpouki ladadika adadika adadika adadika adadika ',
     image: '../../public/undraw_breakfast_psiw.svg',
     extraDetails: <div className='flex justify-between'><p>Price: 1000$</p><p>4.6 stars</p></div>,
     tags: [{label: '2$',},{label: 'Hot'}, {label: '1+1'},]

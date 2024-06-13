@@ -1,4 +1,4 @@
-import { CardInsideTags, CardProps } from "./types";
+import { CardInsideTags, CardProps, SmallDetailsProps } from "./types";
 
 
 export const getCardProps = (props: CardProps): Required<CardProps> => {
@@ -11,8 +11,10 @@ export const getCardProps = (props: CardProps): Required<CardProps> => {
     }
 }
 
+export const getCardBoxStyle = 'rounded-t-md cursor-pointer transition-transform hover:scale-101 shadow-card hover:shadow-card-hover'
+
 const bgColors: string[][] = [
-    ['#ffffff', 'text-black', '#000000'],
+    ['#ffffff', 'text-black', '#666666'],
     ['#f59e0b', 'text-white', '#d97706'],
     ['#22c55e', 'text-white', '#16a34a'],
     ['#14b8a6', 'text-white', '#0d9488'],

@@ -1,7 +1,39 @@
 import { FC } from "react";
-import { getCardProps, getTagBackgroundColor } from "./libs";
-import { CardDetailsProps, CardInsideTags, CardSimpleProps } from "./types";
+import { getCardBoxStyle, getCardProps, getTagBackgroundColor } from "./libs";
+import { CardDetailsProps, CardInsideTags, CardProps, CardSimpleProps, SmallDetailsProps } from "./types";
 import { twMerge } from "tailwind-merge";
+
+export const SmallCard: FC<SmallDetailsProps> = (_props) => {
+    const props = getCardProps({..._props, size: _props.size ?? '15vw'} as CardProps);
+    const imageAlt = _props.imageAlt ?? 'Small Card image'
+    return (
+        <figure 
+        style={{
+            width: props.size,
+            height: parseInt(props.size)*1.2+'vw',
+            backgroundColor: props.backgroundColor,
+        }}
+        className={twMerge("relative flex justify-center items-end",getCardBoxStyle)}>
+            <img src={props.image} alt={imageAlt}/>
+            <ul className="absolute left-4 w-[calc(100%-32px)] top-2 flex flex-wrap gap-x-4 gap-y-2 justify-between">
+            {
+                props.tags.map((item, index) => {
+                    const [bgStyle, textStyle] = getTagBackgroundColor(index, props)
+                    return (
+                        <li 
+                        style={{
+                            backgroundColor: bgStyle,
+                        }}
+                        className={twMerge('py-2 px-4 rounded font-medium', textStyle)}>
+                            {item.label}
+                        </li>
+                    )
+                })
+            }
+            </ul>
+        </figure>
+    )
+}
 
 const SimpleCard: FC<CardSimpleProps> = (_props) => {
     return <DetailedCard {..._props}/>
@@ -15,7 +47,7 @@ const DetailedCard: FC<CardDetailsProps> = (_props) => {
     return (
         <section
         onClick={handleClick}
-        className="shadow-card hover:cursor-pointer hover:scale-101 transition-transform hover:shadow-card-hover rounded-t rounded-b-md flex flex-col relative"
+        className={twMerge("rounded-b-md flex flex-col relative", getCardBoxStyle)}
         style={{
             width: props.size,
             height: props.size,
@@ -42,14 +74,13 @@ const InsideLabels: FC<Pick<CardDetailsProps, 'tags'>> = (props) => {
 
 const InsideLabelItem: FC<CardInsideTags & {index: number}> = (props) => {
     const [bgStyle, textStyle, backStyle] = getTagBackgroundColor(props.index, props)
-    // if(index>)
     return (
         <>
         <li
         style={{
             backgroundColor: bgStyle,
         }} 
-        className={twMerge('rounded-b-md w-16 h-10 flex items-center justify-center brightness-110 relative', textStyle)}>
+        className={twMerge('rounded-b-md w-16 h-12 flex items-center justify-center brightness-110 relative', textStyle)}>
             <p 
             className="z-[100] truncate font-medium">{props.label}</p>
         </li>
@@ -61,7 +92,7 @@ const InsideLabelItem: FC<CardInsideTags & {index: number}> = (props) => {
             left: 40 + 64*props.index + 16*props.index,
             backgroundColor: backStyle
         }}
-        className="w-3 h-5 absolute top-[2px] rotate-45 -z-[100]"></div>
+        className="w-3 h-5 absolute top-[2px] rotate-[35deg] -z-[100]"></div>
         </>
     )
 }
@@ -75,9 +106,10 @@ const ExtraDetails: FC<CardDetailsProps> = (props) => {
     )
 }
 
-const Image: FC<Required<CardSimpleProps>> = (props) => {
+const Image: FC<CardDetailsProps> = (props) => {
+    const imageStyles = props.extraDetails ? 'basis-[75%]' : 'basis-[80%]'
     return (
-        <div className="w-full basis-[75%] rounded-t relative flex items-end justify-center">
+        <div className={twMerge("w-full rounded-t relative flex items-end justify-center", imageStyles)}>
             <InsideLabels tags={props.tags}/>
             <figure 
             style={{
@@ -90,11 +122,13 @@ const Image: FC<Required<CardSimpleProps>> = (props) => {
     )
 }
 
-const Details: FC<Required<CardSimpleProps>> = (props) => {
+const Details: FC<CardDetailsProps> = (props) => {
+    const detailsStyles = props.extraDetails ? '' : 'flex flex-col gap-y-2'
+    const descStyles = props.extraDetails ? 'line-clamp-1' : 'line-clamp-2'
     return (
-        <div className="w-full min-h-[15%] px-2 py-2 pb-4">
+        <div className={twMerge("w-full min-h-[15%] px-2 py-2 pb-4", detailsStyles)}>
             <p className="font-semibold text-lg line-clamp-2 leading-6">{props.label}</p>
-            <p className="font-medium text-sm text-gray-600 line-clamp-1">{props.description}</p>
+            <p className={twMerge("font-medium text-sm text-gray-600", descStyles)}>{props.description}</p>
         </div>
     )
 }

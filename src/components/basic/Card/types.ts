@@ -25,8 +25,8 @@ export interface CardDetailsProps extends CardProps {
     leading?: ReactElement;
 }
 
-export interface SmallDetailsProps extends Pick<CardProps, 'image' | 'label' | 'backgroundColor'>{
-    
+export interface SmallDetailsProps extends Pick<CardProps, 'image' | 'tags' | 'backgroundColor' | 'size' | 'onClick'>{
+    imageAlt?: string
 }
 
 /*

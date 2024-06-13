@@ -24,7 +24,7 @@ All files are bundled into 3 seperate files for both cjs, esm and dts using the 
 Install @tryferos/dropdown using
 
 ```bash
-  npm install @tryferos/tui@0.0.5
+  npm install @tryferos/tui@0.1.0
 ```
 
 Remember that you need to have react and react-dom already installed
@@ -36,7 +36,7 @@ Remember that you need to have react and react-dom already installed
 This package is build using react 18, you can use with different versions of react at your own risk.
 
 ```bash
-  npm install @tryferos/tui@0.0.5 --force
+  npm install @tryferos/tui@0.1.0 --force
 ```
 
 Import the components
